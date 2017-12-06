@@ -57,5 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
-# nat-server configuration file
+# file-server configuration file
 config.json
+
+# Daemon folder for running as a service
+daemon
