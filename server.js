@@ -3,8 +3,6 @@
 process.title = 'file-server';
 
 require('dotenv').config();
-// const express = require('express');
-// const app = express();
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
@@ -12,14 +10,15 @@ const server = http.createServer();
 const pug = require('pug');
 
 const config = require('./config.json');
+const log = config.log || true;
 
 const port = process.env.PORT || 3000;
 
 // Compile pug file
-const folderView = pug.compileFile(path.join('views', 'folder.pug'));
+const folderView = pug.compileFile(path.join(__dirname, 'views', 'folder.pug'));
 
 const error = (err, res) => {
-	if (config.log) console.error(err.stack || err);
+	if (log) console.error(err.stack || err);
 	if (res) {
 		res.statusCode = 500;
 		res.end('server error');
@@ -45,7 +44,7 @@ server.on('request', (req, res) => {
 			return reject();
 		}
 
-		if (config.log) console.log(req.url, '-->', location);
+		if (log) console.log(req.url, '-->', location);
 
 		fs.stat(location, (err, stats) => {
 			if (err) {
@@ -75,7 +74,9 @@ server.on('request', (req, res) => {
 			fs.readdir(location, (err, items) => {
 				if (err) return reject(err);
 
-				res.end(folderView({ items }));
+				res.end(folderView({
+					items
+				}));
 
 			})
 		}
@@ -86,5 +87,5 @@ server.on('request', (req, res) => {
 });
 
 server.listen(port || 3000, () => {
-	if (config.log) console.log(`HTTP on port ${port}`);
+	if (log) console.log(`HTTP on port ${port}`);
 });
