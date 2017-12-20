@@ -2,17 +2,16 @@
 
 process.title = 'file-server';
 
-require('dotenv').config();
+const dir = require('require-object');
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
 const server = http.createServer();
 const pug = require('pug');
 
-const config = require('./config.json');
+const config = dir['config.json'];
 const log = config.log || true;
-
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || config.port || 3000;
 
 // Compile pug file
 const folderView = pug.compileFile(path.join(__dirname, 'views', 'folder.pug'));
