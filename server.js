@@ -14,7 +14,7 @@ const log = config.log || true;
 const port = process.env.PORT || config.port || 3000;
 
 // Compile pug file
-const folderView = pug.compileFile(path.join(__dirname, 'views', 'folder.pug'));
+const folderView = pug.compileFile(path.join(__dirname, 'views', 'directory.pug'));
 
 const error = (err, res) => {
 	if (log) console.error(err.stack || err);
