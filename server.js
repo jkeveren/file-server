@@ -60,15 +60,26 @@ server.on('request', (req, res) => {
 			if (stats.isFile()) {
 				resolve('file');
 			} else {
-				resolve('folder');
+				resolve('directory');
 			}
 
 		});
 
-	}).then(type => {
+	}).then(type => new Promise((resolve, reject) => {
 		if (type === 'file') {
-			const file = fs.createReadStream(location);
-			file.pipe(res);
+			fs.stat(location, (err, stats) => {
+
+				if (err) {
+					return reject(err);
+				}
+
+				res.setHeader('content-disposition', 'attachment');
+				res.setHeader('content-length', stats.size.toString());
+
+				const file = fs.createReadStream(location);
+
+				file.pipe(res);
+			});
 		} else {
 			fs.readdir(location, (err, items) => {
 				if (err) return reject(err);
@@ -77,9 +88,11 @@ server.on('request', (req, res) => {
 					items
 				}));
 
-			})
+				resolve();
+
+			});
 		}
-	}).catch(err => {
+	})).catch(err => {
 		if (err) error(err, res);
 	});
 
