@@ -1,7 +1,6 @@
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
-import readStream from './readStream.mjs';
 
 const getConfig = async () => {
 	const configBuffer = await fs.promises.readFile('config.json');
