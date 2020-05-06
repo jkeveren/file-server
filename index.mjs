@@ -60,7 +60,7 @@ server.on('request', async (request, response) => {
 
 (async () => {
 	const config = await getConfig();
-	const port = process.env.PORT || config.port;
+	const port = process.env.PORT || config.port || 50000;
 	server.listen(port, () => {
 		console.log(`HTTP on port ${port}`);
 	});

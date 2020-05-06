@@ -7,12 +7,8 @@ Create a `./config.json` file with contents that folows this following format:
 
 ```javascript
 {
-	// Mandatory path to directory that you want to be served
-	"root": "/some/direcotry",
-	/* Optional port that file-server will run on (default: 3000).
-	Using the "PORT" environment variable will override this. */
-	"port": 3000,
-	// Mandatory IP whitelist
+	"root": "~/Downloads",
+	"port": 50000,
 	"whitelist": [
 		"127.0.0.1",
 		"::1",
@@ -20,3 +16,9 @@ Create a `./config.json` file with contents that folows this following format:
 	]
 }
 ```
+
+- `root` Mandatory path to directory that you want to serve.
+- `port` Optional port that file-server will run on (default: 50000). Using the "PORT" environment variable will override this.
+- `whitelist` Mandatory IP whitelist.
+
+Start the server with
