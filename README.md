@@ -12,8 +12,6 @@ Create a `./config.json` file with contents that folows this following format:
 	/* Optional port that file-server will run on (default: 3000).
 	Using the "PORT" environment variable will override this. */
 	"port": 3000,
-	// Otional. Should file-server log each request made? (defualt: true)
-	"log": true,
 	// Mandatory IP whitelist
 	"whitelist": [
 		"127.0.0.1",
