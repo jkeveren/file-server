@@ -7,6 +7,8 @@ const getConfig = async () => {
 	return JSON.parse(configBuffer);
 };
 
+process.title = 'file-server';
+
 const server = http.createServer();
 
 server.on('request', async (request, response) => {
@@ -58,7 +60,8 @@ server.on('request', async (request, response) => {
 
 (async () => {
 	const config = await getConfig();
-	server.listen(config.port, () => {
-		console.log(`HTTP on port ${config.port}`);
+	const port = process.env.PORT || config.port;
+	server.listen(port, () => {
+		console.log(`HTTP on port ${port}`);
 	});
 })();
