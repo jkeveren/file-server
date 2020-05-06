@@ -11,15 +11,16 @@ const server = http.createServer();
 
 server.on('request', async (request, response) => {
 	try {
+		const ip = request.socket.remoteAddress; // get ip before waiting for config in case of client that disconnects immediately
 		const config = await getConfig();
 		if (!config.whitelist.includes(request.socket.remoteAddress)) {
 			response.statusCode = 403;
-			console.log('Unregocnised IP address: ' + request.socket.remoteAddress);
+			console.log('Unregocnised IP address: ' + ip);
 			return;
 		}
 		const relativePath = decodeURI(request.url);
 		const absolutePath = path.join(config.root, relativePath);
-		console.log(`${request.socket.remoteAddress} --> ${absolutePath}`);
+		console.log(`${request.socket.remoteAddress} --> ${relativePath}`);
 		let stat;
 		stat = await fs.promises.stat(absolutePath);
 		if (stat.isDirectory()) {
