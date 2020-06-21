@@ -11,7 +11,7 @@ Create a `./config.json` file with contents that follows this following format:
 	"port": 50000,
 	"whitelist": [
 		"::1",
-		"::ffff:127.0.0.1",
+		"::ffff:127.0.0.1"
 	]
 }
 ```
