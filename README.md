@@ -3,7 +3,7 @@ Whitelisted file server that serves files and directory views for navigation.
 
 ## Usage
 
-Create a `./config.json` file with contents that folows this following format:
+Create a `./config.json` file with contents that follows this following format:
 
 ```javascript
 {
